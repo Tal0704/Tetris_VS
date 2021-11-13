@@ -1,0 +1,30 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(495,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(496,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(510,5): warning MSB8028: The intermediate directory (C:\dev\visual studio\test\\intermediate\Debug\Win32\) contains files shared from another project (test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
+C:\dev\visual studio\test\test\lib\Tetromino.h(12): warning C4091: 'static ': ignored on left of 'Tetromino::Kind' when no variable is declared
+  Tetromino.cpp
+C:\dev\visual studio\test\test\lib\Tetromino.h(12): warning C4091: 'static ': ignored on left of 'Tetromino::Kind' when no variable is declared
+C:\dev\visual studio\test\test\lib\Tetromino.cpp(35,108): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\dev\visual studio\test\test\lib\Tetromino.cpp(45,123): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\dev\visual studio\test\test\lib\Tetromino.cpp(64,109): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\dev\visual studio\test\test\lib\Tetromino.cpp(81,90): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Transfrom.cpp
+  Generating Code...
+  test.vcxproj -> C:\dev\visual studio\test\bin\Debug\Win32\Tetris.exe
