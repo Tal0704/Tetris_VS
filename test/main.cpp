@@ -19,6 +19,8 @@ int main()
 		}
 		
 		tetro.draw(window);
+
+		// This is a test.
 	}
 
 	return 0;
