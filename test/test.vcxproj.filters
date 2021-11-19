@@ -24,12 +24,18 @@
     <ClCompile Include="lib\Transfrom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\Transfrom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

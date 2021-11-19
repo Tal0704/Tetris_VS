@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Transfrom.h"
+#include <Transfrom.h>
 
 #if defined(_DEBUG)
 #include <iostream>
@@ -9,13 +9,13 @@
 class Tetromino
 {
 public:
-	static enum class Kind { O = 0, L, J, S, I, Z, T };
+	enum class Kind { O = 0, L, J, S, I, Z, T };
 
 private:
 	Tetromino::Kind kind;
 	sf::RectangleShape tetromino[7 * 4];
 
-	void init(Tetromino::Kind);
+	void init();
 public:
 	void draw(sf::RenderWindow&);
 
@@ -23,6 +23,5 @@ public:
 	
 	Tetromino();
 	Tetromino(Tetromino::Kind);
-
 
 };

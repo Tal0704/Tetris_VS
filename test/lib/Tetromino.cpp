@@ -5,8 +5,8 @@
 #endif // DEBUG
 
 #define MEM_LENGTH_BLOCK 4
-#define BLOCK_LENGTH 30
-#define HALF_BLOCK_LENGTH 15
+#define BLOCK_LENGTH 30.0f
+#define HALF_BLOCK_LENGTH 15.0f
 
 #define BACKGROUND_COLOR sf::Color(0xC6, 0xD8, 0xF2)
 #define O_COLOR sf::Color(0xFB, 0x00, 0x01)
@@ -17,7 +17,7 @@
 #define Z_COLOR sf::Color(0x03, 0xFC, 0x00)
 #define T_COLOR sf::Color(0xF4, 0xF7, 0x23)
 
-void Tetromino::init(Tetromino::Kind kind)
+void Tetromino::init()
 {
 	switch (kind)
 	{
@@ -92,25 +92,25 @@ void Tetromino::init(Tetromino::Kind kind)
 Tetromino::Tetromino()
 	: kind(Tetromino::Kind::O)
 {
-	transform.construct(this->tetromino);
+	transform.construct(this->tetromino + int(this->kind) * 4);
 	for (sf::RectangleShape& tetro : this->tetromino)
 	{
 		tetro.setSize(sf::Vector2f(BLOCK_LENGTH, BLOCK_LENGTH));
 		tetro.setOrigin(sf::Vector2f(tetro.getPosition().x + HALF_BLOCK_LENGTH, tetro.getPosition().y + HALF_BLOCK_LENGTH));
 	}
-	this->init(Tetromino::Kind::O);
+	this->init();
 }
 
 Tetromino::Tetromino(Tetromino::Kind kind)
 	:kind(kind)
 {
-	transform.construct(this->tetromino);
+	transform.construct(this->tetromino + int(this->kind) * 4);
 	for (sf::RectangleShape& tetro : this->tetromino)
 	{
 		tetro.setSize(sf::Vector2f(BLOCK_LENGTH, BLOCK_LENGTH));
 		tetro.setOrigin(sf::Vector2f(tetro.getPosition().x + HALF_BLOCK_LENGTH, tetro.getPosition().y + HALF_BLOCK_LENGTH));
 	}
-	this->init(Tetromino::Kind::O);
+	this->init();
 }
 
 void Tetromino::draw(sf::RenderWindow& window)
@@ -123,10 +123,10 @@ void Tetromino::draw(sf::RenderWindow& window)
 #if defined(_DEBUG)
 	static int count = 0;
 	if (!count)
-		for (sf::RectangleShape tetro : this->tetromino)
+		for (int i = 0; i < 4; i++)
 		{
-			std::cout << tetro.getPosition().x << ", " << tetro.getPosition().y << " ";
-			std::cout << tetro.getSize().x << ", " << tetro.getSize().y << std::endl;
+			std::cout << this->tetromino[i + 4 * int(this->kind)].getPosition().x << ", " << this->tetromino[i + 4 * int(this->kind)].getPosition().y << " ";
+			std::cout << this->tetromino[i + 4 * int(this->kind)].getSize().x << ", " << this->tetromino[i + 4 * int(this->kind)].getSize().y << std::endl;
 		}
 
 	count++;
