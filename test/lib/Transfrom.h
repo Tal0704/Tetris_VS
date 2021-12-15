@@ -17,9 +17,7 @@ public:
 
 	void construct(sf::RectangleShape*);
 
-	void move(Transform::Direction );
+	void move(Transform::Direction);
 
 	void rotate(Transform::Direction);
-
-	void fall();
 };
