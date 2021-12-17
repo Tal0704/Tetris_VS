@@ -2,6 +2,9 @@
 #include <iostream>
 #include <Tetromino.h>
 
+// TODO:
+// Tetromino.cpp rotate check for right bounderies
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(512, 512), "Tetris");

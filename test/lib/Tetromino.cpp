@@ -199,15 +199,22 @@ void Tetromino::getMiddle()
 
 void Tetromino::rotate(Tetromino::Direction dir)
 {
-	for (sf::RectangleShape& tetro : this->tetromino)
+    bool isOutOfBounds = false;
+	sf::Vector2f newPos[4];
+	for (int i = 0; i < 4; i++)
 	{
-		sf::Vector2f newPos;
 		// Calculating new positions for each block
-		newPos.x = -1 * int(dir) * (tetro.getPosition().y - middle.y) + middle.x;
-		newPos.y = int(dir) * tetro.getPosition().x - this->middle.x + this->middle.y;
-
-		tetro.setPosition(newPos);
+		newPos[i].x = -1 * int(dir) * (this->tetromino[i].getPosition().y - middle.y) + middle.x;
+		newPos[i].y = int(dir) * this->tetromino[i].getPosition().x - this->middle.x + this->middle.y;
+		if (newPos[i].x < 15 || newPos->x > 510)
+		{
+			isOutOfBounds = true;
+			break;
+		}
 	}
+	if(!isOutOfBounds)
+		for(int i = 0; i < 4; i++)
+            this->tetromino[i].setPosition(newPos[i]);
 }
 
 #if defined(_DEBUG)
