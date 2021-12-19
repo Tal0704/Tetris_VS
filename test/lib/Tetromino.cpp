@@ -93,7 +93,9 @@ void Tetromino::init()
 Tetromino::Tetromino()
 	: kind(Tetromino::Kind::O)
 {
+#if defined(_DEBUG)
 	this->midPoint = sf::VertexArray(sf::Points, 1);
+#endif //_DEBUG
 	for (sf::RectangleShape& tetro : this->tetromino)
 	{
 		tetro.setSize(sf::Vector2f(BLOCK_LENGTH, BLOCK_LENGTH));
@@ -112,8 +114,10 @@ Tetromino::Tetromino()
 Tetromino::Tetromino(Tetromino::Kind kind)
 	:kind(kind)
 {
+#if defined(_DEBUG)
 	this->midPoint = sf::VertexArray(sf::Points, 1);
 	this->midPoint[0].color = sf::Color::Black;
+#endif //_DEBUG
 	for (sf::RectangleShape& tetro : this->tetromino)
 	{
 		tetro.setSize(sf::Vector2f(BLOCK_LENGTH, BLOCK_LENGTH));
@@ -144,10 +148,24 @@ void Tetromino::draw(sf::RenderWindow& window)
 
 void Tetromino::move(Tetromino::Direction dir)
 {
-	for (sf::RectangleShape& tetro : this->tetromino)
-		tetro.move(sf::Vector2f(BLOCK_LENGTH * (int)dir, 0.0f));
+	std::array<sf::Vector2f, 4> temp;
+	bool isInBounds = true;
+	for (int i = 0; i < temp.size(); i++)
+	{
+		temp[i].x = this->tetromino[i].getPosition().x + (int)dir * BLOCK_LENGTH;
+		temp[i].y = this->tetromino[i].getPosition().y;
+
+		if (temp[i].x < 15 || temp[i].x > 495)
+		{
+			isInBounds = false;
+			break;
+		}
+	}
     this->middle += sf::Vector2f(BLOCK_LENGTH * (int)dir, 0.0f);
 	
+	if(isInBounds)
+		for(int i =0; i < 4; i++)
+            this->tetromino[i].setPosition(temp[i]);
 }
 
 void Tetromino::fall()

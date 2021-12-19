@@ -163,12 +163,10 @@
     <ClCompile Include="lib\functions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\Tetromino.cpp" />
-    <ClCompile Include="lib\Transfrom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\functions.h" />
     <ClInclude Include="lib\Tetromino.h" />
-    <ClInclude Include="lib\Transfrom.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

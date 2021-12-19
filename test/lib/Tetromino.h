@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <array>
 #include <SFML/Graphics.hpp>
 
 #if defined(_DEBUG)

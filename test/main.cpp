@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Tetromino.h>
+#include <functions.h>
+#include <thread>
 
 // TODO:
 // Tetromino.cpp rotate check for right bounderies
@@ -9,6 +11,22 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(512, 512), "Tetris");
 	Tetromino tetro(Tetromino::Kind::I);
+
+	//fall(tetro, window);
+    sf::Clock fallingTimer;
+    sf::Time fallSpeed = sf::milliseconds(500);
+#if !defined(_DEBUG)
+	std::thread fallingThread([&]() {
+            while (window.isOpen())
+            {
+                if (fallingTimer.getElapsedTime() == fallSpeed)
+                {
+                    tetro.fall();
+                    fallingTimer.restart();
+                }
+            }
+		});
+#endif
 
 	while (window.isOpen())
 	{
@@ -37,6 +55,9 @@ int main()
 		
 		tetro.draw(window);
 	}
+#if !defined(_DEBUG)	
+	fallingThread.join();
+#endif // _DEBUG
 
 	return 0;
 }
