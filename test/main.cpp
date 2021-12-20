@@ -12,7 +12,7 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(512, 512), "Tetris");
-	Tetromino tetro(Tetromino::Kind::I);
+	Tetromino tetro(Tetromino::Shape::I);
 
 	//fall(tetro, window);
     sf::Clock fallingTimer;

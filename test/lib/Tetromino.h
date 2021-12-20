@@ -12,11 +12,11 @@
 class Tetromino : public sf::Drawable
 {
 public:
-	enum class Kind { O = 0, L, J, S, I, Z, T };
+	enum class Shape { O = 0, L, J, S, I, Z, T };
 	enum class Direction { Left = -1, Right = 1};
 
 private:
-	Tetromino::Kind kind;
+	Tetromino::Shape shape;
 	sf::RectangleShape tetromino[4];
 	sf::Vector2f middle;
 
@@ -32,11 +32,12 @@ public:
 	void move(Tetromino::Direction);
 	void rotate(Tetromino::Direction);
 	void fall();
+	void setNewShape(Tetromino::Shape);
 #if defined(_DEBUG)
 	void log();
 #endif //_DEBUG
 
 	Tetromino();
 
-	Tetromino(Tetromino::Kind);
+	Tetromino(Tetromino::Shape);
 };
