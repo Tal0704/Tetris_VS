@@ -160,11 +160,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Board.cpp" />
     <ClCompile Include="lib\functions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\Tetromino.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\Board.h" />
     <ClInclude Include="lib\functions.h" />
     <ClInclude Include="lib\Tetromino.h" />
   </ItemGroup>

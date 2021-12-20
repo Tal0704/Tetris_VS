@@ -8,7 +8,6 @@
 #define BLOCK_LENGTH 30.0f
 #define HALF_BLOCK_LENGTH 15.0f
 
-#define BACKGROUND_COLOR sf::Color(0xC6, 0xD8, 0xF2)
 #define O_COLOR sf::Color(0xFB, 0x00, 0x01)
 #define L_COLOR sf::Color(0x03, 0x00, 0xfB)
 #define J_COLOR sf::Color(0xBB, 0x02, 0xED)
@@ -133,17 +132,10 @@ Tetromino::Tetromino(Tetromino::Kind kind)
 #endif // _DEBUG
 }
 
-void Tetromino::draw(sf::RenderWindow& window)
+void Tetromino::draw(sf::RenderTarget& target, sf::RenderStates state) const  
 {
-	window.clear(BACKGROUND_COLOR);
-
-	for (sf::RectangleShape& tetro : this->tetromino)
-		window.draw(tetro);
-#if defined(_DEBUG)
-	this->midPoint[0].position = this->middle;
-	window.draw(this->midPoint);
-#endif //_DEBUG
-	window.display();
+	for (int i = 0; i < 4; i++)
+		target.draw(this->tetromino[i]);
 }
 
 void Tetromino::move(Tetromino::Direction dir)

@@ -4,6 +4,8 @@
 #include <functions.h>
 #include <thread>
 
+#define BACKGROUND_COLOR sf::Color(0xC6, 0xD8, 0xF2)
+
 // TODO:
 // Tetromino.cpp rotate check for right bounderies
 
@@ -53,7 +55,9 @@ int main()
 #endif // _DEBUG
 		}
 		
-		tetro.draw(window);
+		window.clear(BACKGROUND_COLOR);
+		window.draw(tetro);
+		window.display();
 	}
 #if !defined(_DEBUG)	
 	fallingThread.join();

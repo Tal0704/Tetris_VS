@@ -1,2 +1,4 @@
-﻿  Tetromino.cpp
+﻿  Board.cpp
+  main.cpp
+  Generating Code...
   test.vcxproj -> C:\Users\tal\Desktop\projects\proj\Visual studio\c++\Tetris_VS\bin\Debug\Win32\Tetris.exe

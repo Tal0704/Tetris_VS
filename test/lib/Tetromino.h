@@ -9,7 +9,7 @@
 #include <fstream>
 #endif // _DEBUG
 
-class Tetromino
+class Tetromino : public sf::Drawable
 {
 public:
 	enum class Kind { O = 0, L, J, S, I, Z, T };
@@ -28,7 +28,7 @@ private:
 
 public:
 
-	void draw(sf::RenderWindow&);
+	void draw(sf::RenderTarget&, sf::RenderStates) const override;
 	void move(Tetromino::Direction);
 	void rotate(Tetromino::Direction);
 	void fall();
