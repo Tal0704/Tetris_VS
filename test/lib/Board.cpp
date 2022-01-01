@@ -77,3 +77,8 @@ void Board::moveShape(Tetromino::Direction dir)
 	if (!isOutOfBounds)
 		this->currentShape.move(dir);
 }
+
+void Board::instaDrop()
+{
+
+}
