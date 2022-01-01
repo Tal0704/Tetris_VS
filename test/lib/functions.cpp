@@ -7,7 +7,7 @@ void fall(Tetromino& tetro, sf::RenderWindow& window)
 		sf::Time fallSpeed = sf::milliseconds(500);
 		while (window.isOpen())
 		{
-			if (fallingTimer.getElapsedTime() == fallSpeed)
+			if (fallingTimer.getElapsedTime() >= fallSpeed)
 			{
                 tetro.fall();
 				fallingTimer.restart();

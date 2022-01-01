@@ -16,9 +16,9 @@ public:
 	enum class Direction { Left = -1, Right = 1};
 
 private:
-	Tetromino::Shape shape;
-	sf::RectangleShape tetromino[4];
-	sf::Vector2f middle;
+	Tetromino::Shape m_shape;
+	sf::RectangleShape m_tetromino[4];
+	sf::Vector2f m_middle;
 
 	void getMiddle();
 	void init();
@@ -33,6 +33,9 @@ public:
 	void rotate(Tetromino::Direction);
 	void fall();
 	void setNewShape(Tetromino::Shape);
+	sf::RectangleShape operator[](size_t index) const { return this->m_tetromino[index]; }
+	sf::Vector2f getPostion(unsigned int);
+	sf::Vector2f getMinPosition();
 #if defined(_DEBUG)
 	void log();
 #endif //_DEBUG

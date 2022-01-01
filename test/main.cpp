@@ -3,32 +3,29 @@
 #include <Tetromino.h>
 #include <functions.h>
 #include <thread>
+#include <string>
+#include <Board.h>
 
 #define BACKGROUND_COLOR sf::Color(0xC6, 0xD8, 0xF2)
 
-// TODO:
-// Tetromino.cpp rotate check for right bounderies
-
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(512, 512), "Tetris");
-	Tetromino tetro(Tetromino::Shape::I);
+	sf::RenderWindow window(sf::VideoMode(300, 512), "Tetris");
+	Board currentGame(window.getSize());
+
+#if !defined(_DEBUG)
+	std::thread fallingThread([&]()
+		{
+			while (window.isOpen())
+			{
+				fall(currentGame.currentShape, window);
+			}
+		});
+#endif
 
 	//fall(tetro, window);
     sf::Clock fallingTimer;
     sf::Time fallSpeed = sf::milliseconds(500);
-#if !defined(_DEBUG)
-	std::thread fallingThread([&]() {
-            while (window.isOpen())
-            {
-                if (fallingTimer.getElapsedTime() == fallSpeed)
-                {
-                    tetro.fall();
-                    fallingTimer.restart();
-                }
-            }
-		});
-#endif
 
 	while (window.isOpen())
 	{
@@ -40,23 +37,30 @@ int main()
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
 				window.close();
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
-                tetro.move(Tetromino::Direction::Left);
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
-                tetro.move(Tetromino::Direction::Right);
+				currentGame.moveShape(Tetromino::Direction::Left);
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
+				currentGame.moveShape(Tetromino::Direction::Right);
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
-				tetro.rotate(Tetromino::Direction::Right);
+				currentGame.currentShape.rotate(Tetromino::Direction::Right);
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Z)
-				tetro.rotate(Tetromino::Direction::Left);
-#if defined(_DEBUG)
+				currentGame.currentShape.rotate(Tetromino::Direction::Left);
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
-				tetro.fall();
+				if(!currentGame.isDown())
+					currentGame.currentShape.fall();
+#if defined(_DEBUG)
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L)
-				tetro.log();
+				currentGame.currentShape.log();
 #endif // _DEBUG
+		}
+
+		if (currentGame.isDown())
+		{
+			currentGame.addCurrentShape();
+			currentGame.createNewShape();
 		}
 		
 		window.clear(BACKGROUND_COLOR);
-		window.draw(tetro);
+		window.draw(currentGame);
 		window.display();
 	}
 #if !defined(_DEBUG)	

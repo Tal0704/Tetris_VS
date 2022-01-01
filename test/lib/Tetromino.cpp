@@ -18,71 +18,71 @@
 
 void Tetromino::init()
 {
-	switch (shape)
+	switch (m_shape)
 	{
 	case Tetromino::Shape::O:
-		this->tetromino[0].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));								  // top left
-		this->tetromino[1].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));				  // top right
-		this->tetromino[2].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH));				  // bottom left
-		this->tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // bottom right
+		this->m_tetromino[0].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));								  // top left
+		this->m_tetromino[1].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));				  // top right
+		this->m_tetromino[2].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH));				  // bottom left
+		this->m_tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // bottom right
 		for (int i = 0; i < 4; i++)
-			this->tetromino[i].setFillColor(O_COLOR);
+			this->m_tetromino[i].setFillColor(O_COLOR);
 
 		break;
 	case Tetromino::Shape::L:
 		for (int i = 0; i < 3; i++)
 		{
-			this->tetromino[i].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH + (BLOCK_LENGTH * i))); // row 
-			this->tetromino[i].setFillColor(L_COLOR);
+			this->m_tetromino[i].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH + (BLOCK_LENGTH * i))); // row 
+			this->m_tetromino[i].setFillColor(L_COLOR);
 		}
-		this->tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, (2 * BLOCK_LENGTH) + HALF_BLOCK_LENGTH));
-		this->tetromino[3].setFillColor(L_COLOR);
+		this->m_tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, (2 * BLOCK_LENGTH) + HALF_BLOCK_LENGTH));
+		this->m_tetromino[3].setFillColor(L_COLOR);
 
 		break;
 	case Tetromino::Shape::J:
 		for (int i = 0; i < 3; i++)
 		{
-			this->tetromino[i].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH + (BLOCK_LENGTH * i)));
-			this->tetromino[i].setFillColor(J_COLOR);
+			this->m_tetromino[i].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH + (BLOCK_LENGTH * i)));
+			this->m_tetromino[i].setFillColor(J_COLOR);
 		}
-		this->tetromino[3].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, (2 * BLOCK_LENGTH) + HALF_BLOCK_LENGTH));
-		this->tetromino[3].setFillColor(J_COLOR);
+		this->m_tetromino[3].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, (2 * BLOCK_LENGTH) + HALF_BLOCK_LENGTH));
+		this->m_tetromino[3].setFillColor(J_COLOR);
 
 		break;
 	case Tetromino::Shape::S:
-		this->tetromino[0].setPosition(sf::Vector2f(BLOCK_LENGTH * 2 + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));			  // top right
-		this->tetromino[1].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));				  // top left
-		this->tetromino[2].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // bottom right
-		this->tetromino[3].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH));				  // bottom left
+		this->m_tetromino[0].setPosition(sf::Vector2f(BLOCK_LENGTH * 2 + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));			  // top right
+		this->m_tetromino[1].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));				  // top left
+		this->m_tetromino[2].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // bottom right
+		this->m_tetromino[3].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH));				  // bottom left
 		for (int i = 0; i < 4; i++)
-			this->tetromino[i].setFillColor(S_COLOR);
+			this->m_tetromino[i].setFillColor(S_COLOR);
 
 		break;
 	case Tetromino::Shape::I:
 		for (int i = 0; i < 4; i++)
 		{
-			this->tetromino[i].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, (BLOCK_LENGTH * i) + HALF_BLOCK_LENGTH));
-			this->tetromino[i].setFillColor(I_COLOR);
+			this->m_tetromino[i].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, (BLOCK_LENGTH * i) + HALF_BLOCK_LENGTH));
+			this->m_tetromino[i].setFillColor(I_COLOR);
 		}
 
 		break;
 	case Tetromino::Shape::Z:
-		this->tetromino[0].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));									  // top left
-		this->tetromino[1].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));					  // top right
-		this->tetromino[2].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH));	  // bottom left
-		this->tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH * 2 + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // bottom right
+		this->m_tetromino[0].setPosition(sf::Vector2f(HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));									  // top left
+		this->m_tetromino[1].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));					  // top right
+		this->m_tetromino[2].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH));	  // bottom left
+		this->m_tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH * 2 + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // bottom right
 		for (int i = 0; i < 4; i++)
-			this->tetromino[i].setFillColor(Z_COLOR);
+			this->m_tetromino[i].setFillColor(Z_COLOR);
 
 		break;
 	case Tetromino::Shape::T:
 		for (int i = 0; i < 3; i++)
 		{
-			this->tetromino[i].setPosition(sf::Vector2f((BLOCK_LENGTH * i) + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // Bottom three
-			this->tetromino[i].setFillColor(T_COLOR);
+			this->m_tetromino[i].setPosition(sf::Vector2f((BLOCK_LENGTH * i) + HALF_BLOCK_LENGTH, BLOCK_LENGTH + HALF_BLOCK_LENGTH)); // Bottom three
+			this->m_tetromino[i].setFillColor(T_COLOR);
 		}
-		this->tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));
-		this->tetromino[3].setFillColor(T_COLOR);
+		this->m_tetromino[3].setPosition(sf::Vector2f(BLOCK_LENGTH + HALF_BLOCK_LENGTH, HALF_BLOCK_LENGTH));
+		this->m_tetromino[3].setFillColor(T_COLOR);
 		break;
 	default:
 		break;
@@ -90,44 +90,48 @@ void Tetromino::init()
 }
 
 Tetromino::Tetromino()
-	: shape(Tetromino::Shape::O)
+	: m_shape(Tetromino::Shape::O)
 {
 #if defined(_DEBUG)
 	this->midPoint = sf::VertexArray(sf::Points, 1);
 #endif //_DEBUG
-	for (sf::RectangleShape& tetro : this->tetromino)
+	for (sf::RectangleShape& tetro : this->m_tetromino)
 	{
 		tetro.setSize(sf::Vector2f(BLOCK_LENGTH, BLOCK_LENGTH));
 		tetro.setOrigin(sf::Vector2f(tetro.getPosition().x + HALF_BLOCK_LENGTH, tetro.getPosition().y + HALF_BLOCK_LENGTH));
+		tetro.setOutlineColor(sf::Color::Black);
+		tetro.setOutlineThickness(-1);
 	}
 	this->init();
 	this->getMiddle();
 #if defined(_DEBUG)
 	std::ofstream logs;
 	logs.open("logs.txt");
-	logs << "Middle of tetromino: " << this->middle.x << ", " << middle.y << "\n";
+	logs << "Middle of tetromino: " << this->m_middle.x << ", " << m_middle.y << "\n";
 	logs.close();
 #endif // _DEBUG
 }
 
 Tetromino::Tetromino(Tetromino::Shape kind)
-	:shape(kind)
+	:m_shape(kind)
 {
 #if defined(_DEBUG)
 	this->midPoint = sf::VertexArray(sf::Points, 1);
 	this->midPoint[0].color = sf::Color::Black;
 #endif //_DEBUG
-	for (sf::RectangleShape& tetro : this->tetromino)
+	for (sf::RectangleShape& tetro : this->m_tetromino)
 	{
 		tetro.setSize(sf::Vector2f(BLOCK_LENGTH, BLOCK_LENGTH));
 		tetro.setOrigin(sf::Vector2f(tetro.getPosition().x + HALF_BLOCK_LENGTH, tetro.getPosition().y + HALF_BLOCK_LENGTH));
+		tetro.setOutlineColor(sf::Color::Black);
+		tetro.setOutlineThickness(-1);
 	}
 	this->init();
 	this->getMiddle();
 #if defined(_DEBUG)
 	std::ofstream logs;
 	logs.open("logs.txt");
-	logs << "Middle of tetromino: " << this->middle.x << ", " << middle.y << "\n";
+	logs << "Middle of tetromino: " << this->m_middle.x << ", " << m_middle.y << "\n";
 	logs.close();
 #endif // _DEBUG
 }
@@ -135,73 +139,58 @@ Tetromino::Tetromino(Tetromino::Shape kind)
 void Tetromino::draw(sf::RenderTarget& target, sf::RenderStates state) const  
 {
 	for (int i = 0; i < 4; i++)
-		target.draw(this->tetromino[i]);
+		target.draw(this->m_tetromino[i]);
 }
 
 void Tetromino::move(Tetromino::Direction dir)
 {
-	std::array<sf::Vector2f, 4> temp;
-	bool isInBounds = true;
-	for (unsigned int i = 0; i < temp.size(); i++)
-	{
-		temp[i].x = this->tetromino[i].getPosition().x + (int)dir * BLOCK_LENGTH;
-		temp[i].y = this->tetromino[i].getPosition().y;
-
-		if (temp[i].x < 15 || temp[i].x > 495)
-		{
-			isInBounds = false;
-			break;
-		}
-	}
-    this->middle += sf::Vector2f(BLOCK_LENGTH * (int)dir, 0.0f);
-	
-	if(isInBounds)
-		for(int i =0; i < 4; i++)
-            this->tetromino[i].setPosition(temp[i]);
+	for (sf::RectangleShape& tetro : this->m_tetromino)
+		tetro.move(sf::Vector2f(BLOCK_LENGTH * (int)dir, 0.0f));
+    this->m_middle += sf::Vector2f(BLOCK_LENGTH * (int)dir, 0.0f);
 }
 
 void Tetromino::fall()
 {
-	for (sf::RectangleShape& tetro : this->tetromino)
+	for (sf::RectangleShape& tetro : this->m_tetromino)
 		tetro.move(sf::Vector2f(0.0f, BLOCK_LENGTH));
-    this->middle += sf::Vector2f(0.0f, BLOCK_LENGTH);
+    this->m_middle += sf::Vector2f(0.0f, BLOCK_LENGTH);
 }
 
 void Tetromino::getMiddle()
 {
 	sf::Vector2f mid;
-	switch (this->shape)
+	switch (this->m_shape)
 	{
 	case Tetromino::Shape::O:
-		mid.x = this->tetromino[0].getPosition().x + HALF_BLOCK_LENGTH;
-		mid.y = this->tetromino[0].getPosition().y + HALF_BLOCK_LENGTH;
-		this->middle = mid;
+		mid.x = this->m_tetromino[0].getPosition().x + HALF_BLOCK_LENGTH;
+		mid.y = this->m_tetromino[0].getPosition().y + HALF_BLOCK_LENGTH;
+		this->m_middle = mid;
 
 		return;
 	case Tetromino::Shape::L:
-		this->middle = this->tetromino[1].getPosition();
+		this->m_middle = this->m_tetromino[1].getPosition();
 
 		return;
 	case Tetromino::Shape::J:
-		this->middle = this->tetromino[1].getPosition();
+		this->m_middle = this->m_tetromino[1].getPosition();
 
 		return;
 	case Tetromino::Shape::S:
-		this->middle = this->tetromino[2].getPosition();
+		this->m_middle = this->m_tetromino[2].getPosition();
 
 		return;
 	case Tetromino::Shape::I:
-		mid.x = this->tetromino[1].getPosition().x + HALF_BLOCK_LENGTH;
-		mid.y = this->tetromino[1].getPosition().y + HALF_BLOCK_LENGTH;
-		this->middle = mid;
+		mid.x = this->m_tetromino[1].getPosition().x + HALF_BLOCK_LENGTH;
+		mid.y = this->m_tetromino[1].getPosition().y + HALF_BLOCK_LENGTH;
+		this->m_middle = mid;
 
 		return;
 	case Tetromino::Shape::Z:
-		this->middle = this->tetromino[2].getPosition();
+		this->m_middle = this->m_tetromino[1].getPosition();
 
 		return;
 	case Tetromino::Shape::T:
-		this->middle = this->tetromino[1].getPosition();
+		this->m_middle = this->m_tetromino[1].getPosition();
 
 		return;
 	}
@@ -214,8 +203,8 @@ void Tetromino::rotate(Tetromino::Direction dir)
 	for (int i = 0; i < 4; i++)
 	{
 		// Calculating new positions for each block
-		newPos[i].x = -1 * int(dir) * (this->tetromino[i].getPosition().y - middle.y) + middle.x;
-		newPos[i].y = int(dir) * this->tetromino[i].getPosition().x - this->middle.x + this->middle.y;
+		newPos[i].x = -1 * int(dir) * (this->m_tetromino[i].getPosition().y - m_middle.y) + m_middle.x;
+		newPos[i].y = int(dir) * this->m_tetromino[i].getPosition().x - this->m_middle.x + this->m_middle.y;
 		if (newPos[i].x < 15 || newPos->x > 510)
 		{
 			isOutOfBounds = true;
@@ -224,7 +213,7 @@ void Tetromino::rotate(Tetromino::Direction dir)
 	}
 	if(!isOutOfBounds)
 		for(int i = 0; i < 4; i++)
-            this->tetromino[i].setPosition(newPos[i]);
+            this->m_tetromino[i].setPosition(newPos[i]);
 }
 
 #if defined(_DEBUG)
@@ -232,15 +221,33 @@ void Tetromino::log()
 {
 	std::ofstream logs;
 	logs.open("logs.txt");
-	logs << "Middle of tetromino: " << this->middle.x << ", " << middle.y << "\n";
-	logs << "tetromino[1] = " << this->tetromino[1].getPosition().x << ", " << this->tetromino[1].getPosition().y << "\n";
+	logs << "Middle of tetromino: " << this->m_middle.x << ", " << m_middle.y << "\n";
+	logs << "tetromino[1] = " << this->m_tetromino[1].getPosition().x << ", " << this->m_tetromino[1].getPosition().y << "\n";
+	logs << "minPos: " << this->getMinPosition().x << ", " << this->getMinPosition().y;
 	logs.close();
 }
 #endif
 
 void Tetromino::setNewShape(Tetromino::Shape shape)
 {
-	this->shape = shape;
+	this->m_shape = shape;
 	this->init();
 	this->getMiddle();
+}
+
+sf::Vector2f Tetromino::getPostion(unsigned int index)
+{
+	return this->m_tetromino[index].getPosition();
+}
+
+sf::Vector2f Tetromino::getMinPosition()
+{
+	short minIndex = 0;
+	for (int i = 1; i < 4; i++)
+	{
+		if (this->m_tetromino[i].getPosition().y > this->m_tetromino[minIndex].getPosition().y)
+			minIndex = i;
+	}
+	return this->m_tetromino[minIndex].getPosition();
+
 }
