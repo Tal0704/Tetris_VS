@@ -63,19 +63,23 @@ void Board::rotateShape()
 
 void Board::moveShape(Tetromino::Direction dir)
 {
-	bool isOutOfBounds = false;
-	for (size_t i = 0; i < 4; i++)
-	{
-		sf::Vector2f temp = this->currentShape[i].getPosition();
-		temp.x += BLOCK_LENGTH * (int)dir;
-		for (sf::RectangleShape& rect : this->m_board)
-			if (temp.x == rect.getPosition().x && temp.y == rect.getPosition().y)
-				isOutOfBounds = true;
-		if (temp.x > this->m_size.x - 1 || temp.x < 0.0f)
-			isOutOfBounds = true;
-	}
-	if (!isOutOfBounds)
-		this->currentShape.move(dir);
+	std::thread movingThread([&]()
+		{
+            bool isOutOfBounds = false;
+            for (size_t i = 0; i < 4; i++)
+            {
+                sf::Vector2f temp = this->currentShape[i].getPosition();
+                temp.x += BLOCK_LENGTH * (int)dir;
+                for (sf::RectangleShape& rect : this->m_board)
+                    if (temp.x == rect.getPosition().x && temp.y == rect.getPosition().y)
+                        isOutOfBounds = true;
+                if (temp.x > this->m_size.x - 1 || temp.x < 0.0f)
+                    isOutOfBounds = true;
+            }
+            if (!isOutOfBounds)
+                this->currentShape.move(dir);
+		});
+	movingThread.join();
 }
 
 void Board::instaDrop()

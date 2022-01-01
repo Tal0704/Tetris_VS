@@ -13,6 +13,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(300, 512), "Tetris");
 	Board currentGame(window.getSize());
 
+	sf::Event movmentEvent;
 #if !defined(_DEBUG)
 	std::thread fallingThread([&]()
 		{
@@ -22,6 +23,45 @@ int main()
 			}
 		});
 #endif
+	std::thread movmentThread([&]() {
+		static sf::Clock movmentClock;
+		while (window.isOpen())
+		{
+			if (movmentClock.getElapsedTime() > sf::milliseconds(50))
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+					currentGame.moveShape(Tetromino::Direction::Right);
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+					currentGame.moveShape(Tetromino::Direction::Left);
+				movmentClock.restart();
+			}
+		}
+    });
+	std::thread rotationThread([&]() {
+            static sf::Clock rotationClock;
+            while (window.isOpen())
+            {
+				if (rotationClock.getElapsedTime() > sf::milliseconds(150))
+				{
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+						currentGame.currentShape.rotate(Tetromino::Direction::Right);
+					rotationClock.restart();
+				}
+			}
+		});
+	std::thread fastFallingThread([&]() {
+            static sf::Clock fastFallingClock;
+            while (window.isOpen())
+            {
+				if (fastFallingClock.getElapsedTime() > sf::milliseconds(250))
+				{
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+						currentGame.instaDrop();
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
+					fastFallingClock.restart();
+				}
+            }
+		});
 
 	//fall(tetro, window);
     sf::Clock fallingTimer;
@@ -36,17 +76,6 @@ int main()
 				window.close();
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
 				window.close();
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
-				currentGame.moveShape(Tetromino::Direction::Left);
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
-				currentGame.moveShape(Tetromino::Direction::Right);
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
-				currentGame.currentShape.rotate(Tetromino::Direction::Right);
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Z)
-				currentGame.currentShape.rotate(Tetromino::Direction::Left);
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
-				if(!currentGame.isDown())
-					currentGame.currentShape.fall();
 #if defined(_DEBUG)
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L)
 				currentGame.currentShape.log();
@@ -66,6 +95,9 @@ int main()
 #if !defined(_DEBUG)	
 	fallingThread.join();
 #endif // _DEBUG
+	rotationThread.join();
+	fastFallingThread.join();
+	movmentThread.join();
 
 	return 0;
 }
