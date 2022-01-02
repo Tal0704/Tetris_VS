@@ -1,16 +1,5 @@
-﻿  Board.cpp
-C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(25,47): warning C4244: '=': conversion from 'size_t' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(26,45): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
+﻿  functions.cpp
+  main.cpp
+C:\Users\tal\dev\c++\Tetris_VS\test\main.cpp(16,12): warning C4101: 'movmentEvent': unreferenced local variable
+  Generating Code...
   test.vcxproj -> C:\Users\tal\dev\c++\Tetris_VS\bin\Debug\Win32\Tetris.exe

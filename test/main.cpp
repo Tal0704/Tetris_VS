@@ -24,46 +24,45 @@ int main()
 		});
 #endif
 	std::thread movmentThread([&]() {
-		static sf::Clock movmentClock;
 		while (window.isOpen())
 		{
-			if (movmentClock.getElapsedTime() > sf::milliseconds(50))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-					currentGame.moveShape(Tetromino::Direction::Right);
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-					currentGame.moveShape(Tetromino::Direction::Left);
-				movmentClock.restart();
+				currentGame.moveShape(Tetromino::Direction::Right);
+				delay(50);
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				currentGame.moveShape(Tetromino::Direction::Left);
+				delay(50);
 			}
 		}
     });
 	std::thread rotationThread([&]() {
-            static sf::Clock rotationClock;
             while (window.isOpen())
             {
-				if (rotationClock.getElapsedTime() > sf::milliseconds(150))
-				{
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-						currentGame.currentShape.rotate(Tetromino::Direction::Right);
-					rotationClock.restart();
-				}
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                {
+                    currentGame.currentShape.rotate(Tetromino::Direction::Right);
+                    delay(149);
+                }
 			}
 		});
 	std::thread fastFallingThread([&]() {
             static sf::Clock fastFallingClock;
             while (window.isOpen())
             {
-				if (fastFallingClock.getElapsedTime() > sf::milliseconds(250))
-				{
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-						currentGame.instaDrop();
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
-					fastFallingClock.restart();
-				}
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                {
+                    currentGame.currentShape.fall();
+                    delay(49);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                    currentGame.instaDrop();
+                fastFallingClock.restart();
             }
 		});
 
-	//fall(tetro, window);
     sf::Clock fallingTimer;
     sf::Time fallSpeed = sf::milliseconds(500);
 

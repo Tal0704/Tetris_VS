@@ -5,3 +5,5 @@
 #include <thread>
 
 void fall(Tetromino&, sf::RenderWindow&);
+
+void delay(size_t);

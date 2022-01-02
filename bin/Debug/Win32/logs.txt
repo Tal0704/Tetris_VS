@@ -1,1 +1,1 @@
-Middle of tetromino: 15, 45
+Middle of tetromino: 30, 30

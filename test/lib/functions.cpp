@@ -16,3 +16,9 @@ void fall(Tetromino& tetro, sf::RenderWindow& window)
     });
 	fallingThread.join();
 }
+
+void delay(size_t ms)
+{
+	sf::Clock delayClock;
+	while (delayClock.getElapsedTime() < sf::milliseconds(ms));
+}
