@@ -1,5 +1,3 @@
-﻿  functions.cpp
-  main.cpp
-C:\Users\tal\dev\c++\Tetris_VS\test\main.cpp(16,12): warning C4101: 'movmentEvent': unreferenced local variable
-  Generating Code...
+﻿  main.cpp
+C:\Users\tal\dev\c++\Tetris_VS\test\main.cpp(17,12): warning C4101: 'movmentEvent': unreferenced local variable
   test.vcxproj -> C:\Users\tal\dev\c++\Tetris_VS\bin\Debug\Win32\Tetris.exe

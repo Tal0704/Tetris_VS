@@ -13,8 +13,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(300, 512), "Tetris");
 	Board currentGame(window.getSize());
 
+	sf::Time fallDelay = sf::milliseconds(60);
 	sf::Event movmentEvent;
-#if !defined(_DEBUG)
 	std::thread fallingThread([&]()
 		{
 			while (window.isOpen())
@@ -22,45 +22,35 @@ int main()
 				fall(currentGame.currentShape, window);
 			}
 		});
-#endif
 	std::thread movmentThread([&]() {
 		while (window.isOpen())
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 				currentGame.moveShape(Tetromino::Direction::Right);
-				delay(50);
+				sf::sleep(sf::milliseconds(100));
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				currentGame.moveShape(Tetromino::Direction::Left);
-				delay(50);
+				sf::sleep(sf::milliseconds(100));
 			}
 		}
     });
 	std::thread rotationThread([&]() {
             while (window.isOpen())
             {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                {
-                    currentGame.currentShape.rotate(Tetromino::Direction::Right);
-                    delay(149);
-                }
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				{
+					currentGame.currentShape.rotate(Tetromino::Direction::Right);
+					sf::sleep(sf::milliseconds(149));
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				{
+				    currentGame.currentShape.fall();
+					sf::sleep(fallDelay);
+				}
 			}
-		});
-	std::thread fastFallingThread([&]() {
-            static sf::Clock fastFallingClock;
-            while (window.isOpen())
-            {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                {
-                    currentGame.currentShape.fall();
-                    delay(49);
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-                    currentGame.instaDrop();
-                fastFallingClock.restart();
-            }
 		});
 
     sf::Clock fallingTimer;
@@ -91,11 +81,8 @@ int main()
 		window.draw(currentGame);
 		window.display();
 	}
-#if !defined(_DEBUG)	
 	fallingThread.join();
-#endif // _DEBUG
 	rotationThread.join();
-	fastFallingThread.join();
 	movmentThread.join();
 
 	return 0;
