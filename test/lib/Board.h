@@ -12,7 +12,7 @@ private:
 	std::vector<sf::RectangleShape> m_board;
 	sf::Vector2u m_size;
 	sf::Vector2f m_location;
-	std::array<sf::Vector2f, 10> m_maxLocation;
+	std::vector<sf::Vector2f> m_maxLocation;
 
 public:
 	Board(sf::Vector2u);
@@ -21,6 +21,7 @@ public:
 	void draw(sf::RenderTarget&, sf::RenderStates) const override;
 	void createNewShape();
 	void addCurrentShape();
+	void updateTopBlocks();
 	void rotateShape();
 	void moveShape(Tetromino::Direction);
 	void instaDrop();

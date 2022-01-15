@@ -8,18 +8,25 @@
 
 #define BACKGROUND_COLOR sf::Color(0xC6, 0xD8, 0xF2)
 
+// TODO:
+// fix updateTopBlocks
+
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(300, 512), "Tetris");
+	sf::RenderWindow window(sf::VideoMode(300, 510), "Tetris");
 	Board currentGame(window.getSize());
 
 	sf::Time fallDelay = sf::milliseconds(60);
-	sf::Event movmentEvent;
 	std::thread fallingThread([&]()
 		{
 			while (window.isOpen())
 			{
 				fall(currentGame.currentShape, window);
+				if (currentGame.isDown())
+				{
+					currentGame.addCurrentShape();
+					currentGame.createNewShape();
+				}
 			}
 		});
 	std::thread movmentThread([&]() {

@@ -3,6 +3,15 @@
 #define BLOCK_LENGTH 30
 #define HALF_BLOCK_SIZE 15
 
+#if defined(_DEBUG)
+
+class Timeing
+{
+	
+};
+
+#endif
+
 void Board::draw(sf::RenderTarget& target, sf::RenderStates state) const
 {
 	for (unsigned int i = 0; i < this->m_board.size(); i++)
@@ -17,23 +26,34 @@ void Board::createNewShape()
 }
 
 Board::Board(sf::Vector2u size)
-	:m_size(size), m_location(sf::Vector2f(0.0f, 0.0f))
+	:m_size(size), m_location(sf::Vector2f(0.0f, 0.0f)), m_maxLocation(10)
 {
 	srand((int)time(NULL));
 	for (size_t i = 0; i < this->m_maxLocation.size(); i++)
 	{
 		this->m_maxLocation[i].x = i * BLOCK_LENGTH + HALF_BLOCK_SIZE;
-		this->m_maxLocation[i].y = this->m_size.y + BLOCK_LENGTH;
+		this->m_maxLocation[i].y = this->m_size.y + HALF_BLOCK_SIZE;
 	}
 	this->createNewShape();
 }
 
 bool Board::isDown()
 {
-	sf::Vector2f minPos = this->currentShape.getMinPosition();
-	for (sf::Vector2f& tetro: this->m_maxLocation)
-		if ((tetro.y < minPos.y + (2 * BLOCK_LENGTH) - 1) && tetro.x == minPos.x)
-			return true;
+	std::array<sf::Vector2f, 4> newPos;
+	for (size_t i = 0; i < newPos.size(); i++)
+	{
+		newPos[i].x = this->currentShape[i].getPosition().x;
+		newPos[i].y = this->currentShape[i].getPosition().y + BLOCK_LENGTH;
+	}
+
+	for(const sf::Vector2f& topBlock : this->m_maxLocation)
+	{
+		for (const sf::Vector2f block : newPos)
+		{
+			if ((block.x == topBlock.x) && (block.y == topBlock.y))
+				return true;
+		}
+	}
 
 	return false;
 }
@@ -85,4 +105,19 @@ void Board::moveShape(Tetromino::Direction dir)
 void Board::instaDrop()
 {
 
+}
+
+void Board::updateTopBlocks()
+{
+	for (const sf::RectangleShape block : this->m_board)
+	{
+		for (const sf::RectangleShape above : this->m_board)
+		{
+			if ((block.getPosition().y - BLOCK_LENGTH != above.getPosition().y) &&
+				 block.getPosition().x == above.getPosition().x)
+			{
+				this->m_maxLocation.push_back(block.getPosition());
+			}
+		}
+	}
 }

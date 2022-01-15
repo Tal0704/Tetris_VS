@@ -35,7 +35,6 @@ public:
 	void setNewShape(Tetromino::Shape);
 	sf::RectangleShape operator[](size_t index) const { return this->m_tetromino[index]; }
 	sf::Vector2f getPostion(unsigned int);
-	sf::Vector2f getMinPosition();
 #if defined(_DEBUG)
 	void log();
 #endif //_DEBUG

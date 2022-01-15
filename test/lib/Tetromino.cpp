@@ -223,7 +223,6 @@ void Tetromino::log()
 	logs.open("logs.txt");
 	logs << "Middle of tetromino: " << this->m_middle.x << ", " << m_middle.y << "\n";
 	logs << "tetromino[1] = " << this->m_tetromino[1].getPosition().x << ", " << this->m_tetromino[1].getPosition().y << "\n";
-	logs << "minPos: " << this->getMinPosition().x << ", " << this->getMinPosition().y;
 	logs.close();
 }
 #endif
@@ -238,16 +237,4 @@ void Tetromino::setNewShape(Tetromino::Shape shape)
 sf::Vector2f Tetromino::getPostion(unsigned int index)
 {
 	return this->m_tetromino[index].getPosition();
-}
-
-sf::Vector2f Tetromino::getMinPosition()
-{
-	short minIndex = 0;
-	for (int i = 1; i < 4; i++)
-	{
-		if (this->m_tetromino[i].getPosition().y > this->m_tetromino[minIndex].getPosition().y)
-			minIndex = i;
-	}
-	return this->m_tetromino[minIndex].getPosition();
-
 }
