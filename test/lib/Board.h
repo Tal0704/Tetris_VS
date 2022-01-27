@@ -5,6 +5,7 @@
 #include <vector>
 #include <array>
 #include <thread>
+#include <algorithm>
 
 class Board : public sf::Drawable
 {
@@ -13,6 +14,8 @@ private:
 	sf::Vector2u m_size;
 	sf::Vector2f m_location;
 	std::vector<sf::Vector2f> m_maxLocation;
+	template<size_t size>
+	void clearLine(std::vector<size_t>);
 
 public:
 	Board(sf::Vector2u);
@@ -26,5 +29,8 @@ public:
 	void moveShape(Tetromino::Direction);
 	void instaDrop();
 	bool isDown();
+	std::vector<size_t> getFullLines();
+
+
 
 };

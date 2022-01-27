@@ -25,6 +25,7 @@ int main()
 				if (currentGame.isDown())
 				{
 					currentGame.addCurrentShape();
+					currentGame.updateTopBlocks();
 					currentGame.createNewShape();
 				}
 			}
@@ -41,6 +42,11 @@ int main()
 			{
 				currentGame.moveShape(Tetromino::Direction::Left);
 				sf::sleep(sf::milliseconds(100));
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				currentGame.instaDrop();
+				sf::sleep(sf::milliseconds(125));
 			}
 		}
     });
@@ -81,7 +87,9 @@ int main()
 		if (currentGame.isDown())
 		{
 			currentGame.addCurrentShape();
+			currentGame.updateTopBlocks();
 			currentGame.createNewShape();
+			auto a = currentGame.getFullLines();
 		}
 		
 		window.clear(BACKGROUND_COLOR);

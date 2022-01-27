@@ -3,15 +3,6 @@
 #define BLOCK_LENGTH 30
 #define HALF_BLOCK_SIZE 15
 
-#if defined(_DEBUG)
-
-class Timeing
-{
-	
-};
-
-#endif
-
 void Board::draw(sf::RenderTarget& target, sf::RenderStates state) const
 {
 	for (unsigned int i = 0; i < this->m_board.size(); i++)
@@ -104,7 +95,8 @@ void Board::moveShape(Tetromino::Direction dir)
 
 void Board::instaDrop()
 {
-
+	while (!this->isDown())
+		this->currentShape.fall();
 }
 
 void Board::updateTopBlocks()
@@ -118,6 +110,64 @@ void Board::updateTopBlocks()
 			{
 				this->m_maxLocation.push_back(block.getPosition());
 			}
+			else
+			{
+				for (size_t i = 10; i < this->m_maxLocation.size(); i++)
+				{
+					if (above.getPosition() == this->m_maxLocation[i])
+					{
+						this->m_maxLocation[i] = this->m_maxLocation.back();
+						this->m_maxLocation.pop_back();
+					}
+				}
+			}
 		}
 	}
+}
+
+template<typename _Ty>
+void swap(_Ty a, _Ty b)
+{
+	try
+	{
+		_Ty temp = a;
+		a = b;
+		b = temp;
+	}
+	catch (const std::exception& e)
+	{
+		throw e;
+	}
+}
+
+void sortBlocks(std::vector<sf::RectangleShape>& blocks)
+{
+#define HEIGHT 17
+	for (size_t i = 0; i < HEIGHT - 1; i++)
+	{
+		for (size_t j = 0; j< HEIGHT; j++)
+		{
+			if (i + 1 < blocks.size())
+			{
+				swap(blocks[i], blocks[i + 1]);
+			}
+		}
+	}
+}
+
+std::vector<size_t> Board::getFullLines()
+{
+#define HEIGHT 17
+#define ROW_LENGTH 10
+	std::vector<size_t> fullLines;
+	sortBlocks(this->m_board);
+	for (size_t i = 0; i < this->m_board.size(); i++)
+	{
+		if (this->m_board[i].getPosition().x + BLOCK_LENGTH * ROW_LENGTH == this->m_board[i + ROW_LENGTH].getPosition().x)
+		{
+			std::cout << "Cleared Line!";
+			//this->clearLine();
+		}
+	}
+	return fullLines;
 }
