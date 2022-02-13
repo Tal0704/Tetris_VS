@@ -14,22 +14,10 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(300, 510), "Tetris");
-	Board currentGame(window.getSize());
+	Board currentGame(window);
 
 	sf::Time fallDelay = sf::milliseconds(60);
-	std::thread fallingThread([&]()
-		{
-			while (window.isOpen())
-			{
-				fall(currentGame.currentShape, window);
-				if (currentGame.isDown())
-				{
-					currentGame.addCurrentShape();
-					currentGame.updateTopBlocks();
-					currentGame.createNewShape();
-				}
-			}
-		});
+
 	std::thread movmentThread([&]() {
 		while (window.isOpen())
 		{
@@ -42,11 +30,6 @@ int main()
 			{
 				currentGame.moveShape(Tetromino::Direction::Left);
 				sf::sleep(sf::milliseconds(100));
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			{
-				currentGame.instaDrop();
-				sf::sleep(sf::milliseconds(125));
 			}
 		}
     });
@@ -62,6 +45,11 @@ int main()
 				{
 				    currentGame.currentShape.fall();
 					sf::sleep(fallDelay);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					currentGame.instaDrop();
+					sf::sleep(sf::milliseconds(125));
 				}
 			}
 		});
@@ -87,7 +75,6 @@ int main()
 		if (currentGame.isDown())
 		{
 			currentGame.addCurrentShape();
-			currentGame.updateTopBlocks();
 			currentGame.createNewShape();
 			auto a = currentGame.getFullLines();
 		}
@@ -96,7 +83,7 @@ int main()
 		window.draw(currentGame);
 		window.display();
 	}
-	fallingThread.join();
+	//fallingThread.join();
 	rotationThread.join();
 	movmentThread.join();
 

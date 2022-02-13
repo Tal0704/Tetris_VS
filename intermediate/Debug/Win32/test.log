@@ -1,10 +1,10 @@
 ﻿  Board.cpp
-C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(25,47): warning C4244: '=': conversion from 'size_t' to 'T', possible loss of data
+C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(50,47): warning C4244: '=': conversion from 'size_t' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(26,45): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(51,57): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int

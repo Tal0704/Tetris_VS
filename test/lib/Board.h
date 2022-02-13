@@ -11,14 +11,16 @@ class Board : public sf::Drawable
 {
 private:
 	std::vector<sf::RectangleShape> m_board;
-	sf::Vector2u m_size;
+	sf::RenderWindow& m_window;
 	sf::Vector2f m_location;
 	std::vector<sf::Vector2f> m_maxLocation;
+	std::thread m_fallingThread;
 	template<size_t size>
 	void clearLine(std::vector<size_t>);
 
 public:
-	Board(sf::Vector2u);
+	Board(sf::RenderWindow&);
+	~Board();
 	Tetromino currentShape;
 
 	void draw(sf::RenderTarget&, sf::RenderStates) const override;
@@ -30,7 +32,5 @@ public:
 	void instaDrop();
 	bool isDown();
 	std::vector<size_t> getFullLines();
-
-
 
 };

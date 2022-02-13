@@ -16,16 +16,46 @@ void Board::createNewShape()
 	this->currentShape.setNewShape((Tetromino::Shape)newShape);
 }
 
-Board::Board(sf::Vector2u size)
-	:m_size(size), m_location(sf::Vector2f(0.0f, 0.0f)), m_maxLocation(10)
+Board::Board(sf::RenderWindow& window)
+	: m_window(window), m_location(sf::Vector2f(0.0f, 0.0f)), m_maxLocation(10), m_fallingThread([&]() {
+			sf::Clock fallingTimer;
+			sf::Time fallSpeed = sf::milliseconds(500);
+#if defined(_DEBUG)
+			bool isStoped = false;
+			std::thread doStop([&]() {
+				while(window.isOpen())
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+					isStoped = !isStoped;
+				});
+#endif
+			while (window.isOpen())
+			{
+#if defined(_DEBUG)
+				if(!isStoped)
+#endif
+				if (fallingTimer.getElapsedTime() >= fallSpeed)
+				{
+					this->currentShape.fall();
+					fallingTimer.restart();
+				}
+			}
+#if defined(_DEBUG)
+			doStop.join();
+#endif
+		})
 {
 	srand((int)time(NULL));
 	for (size_t i = 0; i < this->m_maxLocation.size(); i++)
 	{
 		this->m_maxLocation[i].x = i * BLOCK_LENGTH + HALF_BLOCK_SIZE;
-		this->m_maxLocation[i].y = this->m_size.y + HALF_BLOCK_SIZE;
+		this->m_maxLocation[i].y = this->m_window.getSize().y + HALF_BLOCK_SIZE;
 	}
 	this->createNewShape();
+}
+	
+Board::~Board()
+{
+this->m_fallingThread.join();
 }
 
 bool Board::isDown()
@@ -84,7 +114,7 @@ void Board::moveShape(Tetromino::Direction dir)
                 for (sf::RectangleShape& rect : this->m_board)
                     if (temp.x == rect.getPosition().x && temp.y == rect.getPosition().y)
                         isOutOfBounds = true;
-                if (temp.x > this->m_size.x - 1 || temp.x < 0.0f)
+                if (temp.x > this->m_window.getSize().x - 1 || temp.x < 0.0f)
                     isOutOfBounds = true;
             }
             if (!isOutOfBounds)
@@ -142,32 +172,38 @@ void swap(_Ty a, _Ty b)
 
 void sortBlocks(std::vector<sf::RectangleShape>& blocks)
 {
-#define HEIGHT 17
-	for (size_t i = 0; i < HEIGHT - 1; i++)
-	{
-		for (size_t j = 0; j< HEIGHT; j++)
+	std::sort(blocks.begin(), blocks.end(), [](sf::RectangleShape a, sf::RectangleShape b)
 		{
-			if (i + 1 < blocks.size())
-			{
-				swap(blocks[i], blocks[i + 1]);
-			}
-		}
-	}
+			return a.getPosition().y < b.getPosition().y;
+		});
+
+	std::sort(blocks.begin(), blocks.end(), [](sf::RectangleShape a, sf::RectangleShape b)
+		{
+			return (a.getPosition().y == b.getPosition().y) && (a.getPosition().x < b.getPosition().x);
+		});
+#if defined (_DEBUG)
+	//std::thread doLogging([&]() {
+	//	for (const sf::RectangleShape& block : blocks)
+	//		std::cout << block.getPosition().x << ", " << block.getPosition().y << "\n";
+	//	std::cout << "\n\n\n\n\n\n\n\n";
+	//	});
+	//doLogging.join();
+#endif
 }
 
 std::vector<size_t> Board::getFullLines()
 {
 #define HEIGHT 17
 #define ROW_LENGTH 10
-	std::vector<size_t> fullLines;
+	std::vector<size_t> fullLines = {0};
 	sortBlocks(this->m_board);
-	for (size_t i = 0; i < this->m_board.size(); i++)
-	{
-		if (this->m_board[i].getPosition().x + BLOCK_LENGTH * ROW_LENGTH == this->m_board[i + ROW_LENGTH].getPosition().x)
-		{
-			std::cout << "Cleared Line!";
-			//this->clearLine();
-		}
-	}
+	//for (size_t i = 0; i < this->m_board.size(); i++)
+	//{
+	//	if (this->m_board[i].getPosition().x + BLOCK_LENGTH * ROW_LENGTH == this->m_board[i + ROW_LENGTH].getPosition().x)
+	//	{
+	//		std::cout << "Cleared Line!";
+	//		//this->clearLine();
+	//	}
+	//}
 	return fullLines;
 }
