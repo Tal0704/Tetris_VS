@@ -16,7 +16,7 @@ private:
 	std::vector<sf::Vector2f> m_maxLocation;
 	std::thread m_fallingThread;
 	template<size_t size>
-	void clearLine(std::vector<size_t>);
+	void clearLines(std::vector<size_t>);
 
 public:
 	Board(sf::RenderWindow&);
