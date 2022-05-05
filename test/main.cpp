@@ -8,9 +8,6 @@
 
 #define BACKGROUND_COLOR sf::Color(0xC6, 0xD8, 0xF2)
 
-// TODO:
-// fix updateTopBlocks
-
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(300, 510), "Tetris");
@@ -25,14 +22,21 @@ int main()
 			{
 				currentGame.moveShape(Tetromino::Direction::Right);
 				sf::sleep(sf::milliseconds(100));
+#if defined(_DEBUG)
+				sf::sleep(sf::milliseconds(50));
+#endif
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				currentGame.moveShape(Tetromino::Direction::Left);
 				sf::sleep(sf::milliseconds(100));
+#if defined(_DEBUG)
+				sf::sleep(sf::milliseconds(50));
+#endif
 			}
 		}
     });
+	
 	std::thread rotationThread([&]() {
             while (window.isOpen())
             {
@@ -49,13 +53,10 @@ int main()
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 				{
 					currentGame.instaDrop();
-					sf::sleep(sf::milliseconds(125));
+					sf::sleep(sf::milliseconds(150));
 				}
 			}
 		});
-
-    sf::Clock fallingTimer;
-    sf::Time fallSpeed = sf::milliseconds(500);
 
 	while (window.isOpen())
 	{
@@ -76,14 +77,27 @@ int main()
 		{
 			currentGame.addCurrentShape();
 			currentGame.createNewShape();
-			auto a = currentGame.getFullLines();
+			std::vector<size_t> a = currentGame.getFullLines();
+#if defined(_DEBUG)
+			std::thread doLogging([&a]() {
+				if (a.size() != 0)
+				{
+					std::cout << "Full Lines\n";
+					for (const size_t line : a)
+						std::cout << line << "Cleared!" << "\n";
+				}
+				});
+			doLogging.join();
+#endif
+			window.clear(BACKGROUND_COLOR);
+			window.draw(currentGame);
+			window.display();
 		}
 		
 		window.clear(BACKGROUND_COLOR);
 		window.draw(currentGame);
 		window.display();
 	}
-	//fallingThread.join();
 	rotationThread.join();
 	movmentThread.join();
 

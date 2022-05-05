@@ -181,29 +181,34 @@ void sortBlocks(std::vector<sf::RectangleShape>& blocks)
 		{
 			return (a.getPosition().y == b.getPosition().y) && (a.getPosition().x < b.getPosition().x);
 		});
-#if defined (_DEBUG)
-	//std::thread doLogging([&]() {
-	//	for (const sf::RectangleShape& block : blocks)
-	//		std::cout << block.getPosition().x << ", " << block.getPosition().y << "\n";
-	//	std::cout << "\n\n\n\n\n\n\n\n";
-	//	});
-	//doLogging.join();
-#endif
+//#if defined (_DEBUG)
+//	std::thread doLogging([&]() {
+//		for (const sf::RectangleShape& block : blocks)
+//			std::cout << block.getPosition().x << ", " << block.getPosition().y << "\n";
+//		std::cout << "\n\n\n\n\n\n\n\n";
+//		});
+//	doLogging.join();
+//#endif
 }
 
 std::vector<size_t> Board::getFullLines()
 {
 #define HEIGHT 17
 #define ROW_LENGTH 10
-	std::vector<size_t> fullLines = {0};
+	std::vector<size_t> fullLines;
 	sortBlocks(this->m_board);
-	//for (size_t i = 0; i < this->m_board.size(); i++)
-	//{
-	//	if (this->m_board[i].getPosition().x + BLOCK_LENGTH * ROW_LENGTH == this->m_board[i + ROW_LENGTH].getPosition().x)
-	//	{
-	//		std::cout << "Cleared Line!";
-	//		//this->clearLine();
-	//	}
-	//}
+	for (size_t i = 0; i < HEIGHT * ROW_LENGTH; i += ROW_LENGTH)
+	{
+		bool isLineComplete = true;
+		if ((i + ROW_LENGTH) < m_board.size()) // checking if is in bounds
+			for (size_t j = 0; j < ROW_LENGTH; j++)
+			{
+				double height = this->m_board[i].getPosition().y;
+				if (this->m_board[i * ROW_LENGTH + j].getPosition().y != height)
+					isLineComplete = false;
+			}
+		if(isLineComplete)
+			fullLines.push_back(i);
+	}
 	return fullLines;
 }
