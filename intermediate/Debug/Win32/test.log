@@ -1,16 +1,2 @@
-﻿  Board.cpp
-C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(50,47): warning C4244: '=': conversion from 'size_t' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\tal\dev\c++\Tetris_VS\test\lib\Board.cpp(51,57): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
+﻿  Block.cpp
   test.vcxproj -> C:\Users\tal\dev\c++\Tetris_VS\bin\Debug\Win32\Tetris.exe

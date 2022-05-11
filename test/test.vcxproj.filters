@@ -15,27 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Tetromino.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\functions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Board.cpp">
+    <ClCompile Include="lib\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\Tetromino.h">
+    <ClInclude Include="lib\Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\functions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\Board.h">
+    <ClInclude Include="lib\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
