@@ -18,15 +18,12 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Block.cpp">
+    <ClCompile Include="lib\Tetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\Block.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\debug.h">
+    <ClInclude Include="lib\Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

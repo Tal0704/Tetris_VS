@@ -160,12 +160,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib\Block.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="lib\Tetromino.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\debug.h" />
-    <ClInclude Include="lib\Block.h" />
+    <ClInclude Include="lib\Tetromino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

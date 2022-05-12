@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include <Block.h>
+#include <Tetromino.h>
 
 #if defined(_DEBUG)
 #include <iostream>
@@ -10,14 +10,14 @@ int main()
 {
 	sf::RenderWindow gameWindow(sf::VideoMode(300, 510), "Taltris");
 	sf::Event event;
-	 
+
 	sf::Texture texture;
 	if (!texture.loadFromFile("media/tetros/blue.png"))
 		return -1;
 
-	Block block(texture, sf::Vector2f(30, 30));
+	sf::Sprite sprite(texture);
 
-	block.move(sf::Vector2f(50.0f, 50.0f));
+	Tetromino tetro(Tetromino::Shape::O);
 
 	while (gameWindow.isOpen())
 	{
@@ -29,9 +29,8 @@ int main()
 				gameWindow.close();
 		}
 
-		
 		gameWindow.clear();
-		gameWindow.draw(block);
+		gameWindow.draw(tetro);
 		gameWindow.display();
 	}
 
